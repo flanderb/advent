@@ -1,6 +1,6 @@
 # require 'set'
 
-line = "2-20,21-24"
+line = "22-20,21-24"
 
 def get_tasks(line, elf)
     elfs_tasks_string = line.split(",")[elf]
