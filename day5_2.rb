@@ -66,9 +66,9 @@ class Ship
 
 
     def make_move(stacks, number, from, to)
-        number.times do |num|
-            stacks[to].push(stacks[from].pop)
-        end
+
+        stacks[to].push(stacks[from].pop(number)).flatten!
+
     end
 
     def tops(stacks)
@@ -96,3 +96,4 @@ ship.stacks.each do |stack|
 end
 
 puts ship.top_containers
+

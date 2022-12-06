@@ -1,24 +1,20 @@
-test = "move 7 from 3 to 7\nmove 19 from 7 to 9"
+test = Array.new(2){Array.new}
+test[0] = ['A', 'B', 'C']
+test[1] = ['D', 'E', 'F']
 
 
-def make_moves(input)
-    stacks = Array.new(9){Array.new}
-    i = 0
+def make_move(stacks, number, from, to)
 
-    input.each_line do |line|
-        
-        if line[0] == "m"
-            puts line
-            number = /^move (\d+)/.match(line).to_s.delete("move ")
-            from_stack = /from (\d+)/.match(line).to_s.delete("from ")
-            to_stack = /to (\d+)/.match(line).to_s.delete("to ")
-            puts number
-            puts from_stack
-            puts to_stack
-        end
-        i += 1
+    stacks[to].push(stacks[from].pop(number)).flatten!
 
-    end
 end
 
-make_moves(test)
+test.each do |item|
+    p item
+end
+
+make_move(test, 2, 1, 0)
+
+test.each do |item|
+    p item
+end
