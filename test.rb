@@ -1,22 +1,23 @@
-def find_first_marker(stream)
-    x = 14 
-    stream.each_char.with_index(x) do |char, i|
-        p i
-        # p "stream[#{i}..#{i + 4}]"
-        temp_array = stream[i-x..i].chars.uniq
+def find_first_marker(stream, size_of_marker)
+    z = size_of_marker - 1
+    stream.each_char.with_index(z) do |char, i|
+        p "i = #{i}; z=#{z} "
+        p "stream[#{i-z}..#{i}]"
+        temp_array = stream[i-z..i].chars
         p temp_array
-        p temp_array.size
-        if temp_array.size == x 
-            x = i
+        temp_array = temp_array.uniq
+        p temp_array
+        if temp_array.size == size_of_marker
+            z = i
             break
         end
     end
-    return x + 1
+    return z + 1
 end
 
-test = "mjqjpqmgbljsphdztnvjfqwrcgsmlb"
-test1 = "bvwbjplbgvbhsrlpgdmjqwftvncz"
-test2 = "nppdvjthqldpwncqszvftbrmjlhg" #missing q between c and s why
-test3 = "zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw"
+test = "mjqjpqmgbljsphdztnvjfqwrcgsmlb" #19
+test1 = "bvwbjplbgvbhsrlpgdmjqwftvncz" #23
+test2 = "nppdvjthqldpwncqszvftbrmjlhg" #23 missing q between c and s why
+test3 = "zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw" #26
 
-p find_first_marker(test2)
+p find_first_marker(test3, 14)
