@@ -71,14 +71,14 @@ class Filesystem
         update_needs = 30000000
         used = @dir_size["/"]
         unused_space = disk_size - used
-        p unused_space
+        # p unused_space
         need_free_up = update_needs - unused_space
-        p need_free_up
+        # p need_free_up
         
         size_array = @dir_size.values
-        p size_array
+        # p size_array
         size_array.sort!
-        p size_array
+        # p size_array
 
         size_array.each do |size|
             if size > need_free_up
