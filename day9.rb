@@ -16,7 +16,7 @@ class string
             direction, distance = line.split
             distance.times do |direction|
                 head = move_head(head, direction)
-                tail = move_tail(head, tail, direction)
+                tail = move_tail(head, tail)
                 visited_positions.push(tail.join)
             end
         end
@@ -36,7 +36,7 @@ class string
         return head
     end
 
-    def move_tail(head, tail, dir)
+    def move_tail(head, tail)
         if !is_tail_next_to_head(head, tail)
             case dir
             when "U"
@@ -55,7 +55,7 @@ class string
     def is_tail_next_to_head(head, tail)
         x_diff = head[0] - tail[0]
         y_diff = head[1] - tail[1]
-        return x_diff > 1 || y_diff > 1
+        return x_diff <= 1 && y_diff <= 1
     end
 
 
