@@ -6,3 +6,11 @@ t.each_line do |line|
     p n 
 end
 
+
+a = [1,2,3,4,5,6,7,8,9]
+line = ""
+a.each_with_index do |item, i|
+    line << item.to_s
+end
+
+p line
