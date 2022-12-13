@@ -1,16 +1,8 @@
-t = "noop\naddx 3\naddx -5"
+t = "aaaaabbbbbcccccdddddeeeeefffffggggghhhhhiiiiijjjjjkkkkklllllmmmmmnnnnnooooopppppqqqqqrrrrrssssstttttuuuuuvvvvvwwwwwxxxxxyyyyyzzzzz"
 
-t.each_line do |line|
-    i, n = line.split
-    p i 
-    p n 
-end
+p t[0,40]
+p t[40,40]
 
+q = (24..26)
 
-a = [1,2,3,4,5,6,7,8,9]
-line = ""
-a.each_with_index do |item, i|
-    line << item.to_s
-end
-
-p line
+p q.include?(24)

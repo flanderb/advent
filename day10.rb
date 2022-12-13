@@ -38,29 +38,48 @@ class Cpu
 
     def write_crt (cycles)
         line = ""
-        # line1 = cycles[0..39].join
-        # line2 = cycles[40..79].join
-        # line3 = cycles[80..119]
-        # line4 = cycles[120..159]
-        # line5 = cycles[160..199]
-        # line6 = cycles[200..239]
-
-        (0..239).step(40) do |i|
-            # p cycles[i-40, i].join
-            40.times do 
+        pixel = 0
+        cycles.each do |cycle|
+            # p [index, cycle]
+            if ((cycle -1)..(cycle + 1)).include?(pixel)
+                line << "#"
+                p "#{pixel} = #{((cycle -1)..(cycle + 1))} = #"
+            else
                 line << "."
+                p "#{pixel} = #{((cycle -1)..(cycle + 1))} = ."
             end
-            p line
-            line = ""
+            pixel += 1
+            if pixel % 40 == 0
+                pixel = 0
+            end
         end
-        return line
+
+        # p line
+        [40,80,120,160,200,240].each do |i|
+
+            p line[i - 40, 40]
+
+        end
+        
+
+
+
+        # (0..239).step(40) do |i|
+        #     # p cycles[i-40, i].join
+        #     40.times do 
+        #         line << "."
+        #     end
+        #     p line
+        #     line = ""
+        # end
+        # return line
     end
 
 
 end
 
 
-today = Cpu.new("testi.txt")
-# p today.cycles
-# puts today.strength
+today = Cpu.new("day10i.txt")
+p today.cycles
+puts today.strength
 puts today.write_crt(today.cycles)
