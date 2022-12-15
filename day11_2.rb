@@ -16,7 +16,7 @@ class Monkey
         thrown_items = []
         new_item = 0
         @items.each do |old_item|
-            new_item = eval(@operations.gsub("old", old_item.to_s ))/3
+            new_item = eval(@operations.gsub("old", old_item.to_s ))
             # p "old_item #{old_item}   new item #{new_item}  "
             if new_item % @line_test == 0
                 #pass to true monkey
@@ -84,14 +84,16 @@ class KeepAway
     end
 
     def play(monkeys, rounds)
-        rounds.times do 
+        rounds.times do |round|
             monkeys.each do |monkey|
                 target_monkeys = monkey.inspect_items
                 target_monkeys.each do |target|
                     new_monkey = target[0]
                     new_item = target[1]
-                    p "monkey #{monkey.name} throws item #{new_item} to #{new_monkey}"
                     monkeys[new_monkey].add_item(new_item)
+                end
+                if [1, 20, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000].include?(round)
+                    p " #{round} monkey #{monkey.name} inspected #{monkey.num_inspections}"
                 end
             end
         end
@@ -107,7 +109,7 @@ class KeepAway
 end
 
 
-today = KeepAway.new("day11.txt", 20)
+today = KeepAway.new("testi.txt", 10000)
 m =  today.monkeys
 
 m.each do |monkey|
