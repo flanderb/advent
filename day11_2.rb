@@ -1,14 +1,15 @@
 class Monkey
-    attr_reader :name, :items, :num_inspections
+    attr_accessor :name, :items, :num_inspections, :div_test, :worry_divisor
 
     def initialize(name, items, operations, div_test, true_monkey, false_monkey)
         @name = name
         @items = items
         @operations = operations
-        @line_test = div_test
+        @div_test = div_test
         @true_monkey = true_monkey
         @false_monkey = false_monkey
         @num_inspections = 0
+        @worry_divisor = 1
     end
 
     def inspect_items
@@ -18,14 +19,14 @@ class Monkey
         @items.each do |old_item|
             new_item = eval(@operations.gsub("old", old_item.to_s ))
             # p "old_item #{old_item}   new item #{new_item}  "
-            if new_item % @line_test == 0
+            if new_item % @div_test == 0
                 #pass to true monkey
                 temp_item.push(@true_monkey)
             else
                 #pass to false monkey
                 temp_item.push(@false_monkey)
             end
-            temp_item.push(new_item)
+            temp_item.push(new_item % worry_divisor)
             thrown_items.push(temp_item.clone)
             # p thrown_items
             temp_item.clear
@@ -48,10 +49,23 @@ class KeepAway
     def initialize(input, rounds)
         @monkeys = []
         input_file(input)
+        update_worry_divisor(@monkeys)
         play(@monkeys, rounds)
     end
 
     attr_reader :monkeys
+
+    def update_worry_divisor(monkeys)
+        worry_divisor = 1
+        monkeys.each do |monkey|
+            p monkey
+            worry_divisor = worry_divisor * monkey.div_test
+        end
+        monkeys.each do |monkey|
+            monkey.worry_divisor = worry_divisor
+        end
+    end
+
 
     def input_file(input)
         name = 0
@@ -92,8 +106,12 @@ class KeepAway
                     new_item = target[1]
                     monkeys[new_monkey].add_item(new_item)
                 end
-                if [1, 20, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000].include?(round)
-                    p " #{round} monkey #{monkey.name} inspected #{monkey.num_inspections}"
+            end
+            # p round
+            if [1, 20, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000].include?(round+1)
+                p "== After round #{round+1} =="
+                monkeys.each do |monkey|
+                    p "Monkey #{monkey.name} inspected items #{monkey.num_inspections} times"
                 end
             end
         end
@@ -109,15 +127,10 @@ class KeepAway
 end
 
 
-today = KeepAway.new("testi.txt", 10000)
+today = KeepAway.new("day11.txt", 10000)
 m =  today.monkeys
 
-m.each do |monkey|
-    p "------------"
-    p monkey.name
-    p monkey.items
-    p monkey.num_inspections
-    p "----------"
-    p today.monkey_business
-end
-
+# m.each do |monkey|
+#     p "Monkey #{monkey.name} inspected items #{monkey.num_inspections} times"
+# end
+p "monkey business #{today.monkey_business}"
