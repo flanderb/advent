@@ -13,6 +13,19 @@ class Node
     end
 end
 
+class test
+    attr_accessor :x, :y, :z
+    def initialize
+        @x = 1
+        @y = 2
+        @z = 3
+    end
+end
+
+
+
+
+
 
 a = Hash.new{|h, k| h[k] = []}
 
