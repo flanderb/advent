@@ -14,17 +14,29 @@ end
 class Maze
     attr_accessor :maze, :m_start, :m_end
     def initialize(input)
-        @maze, @m_start, @m_end = MazeFile.new (input)
+        @maze = MazeFile.new (input)
+        @m_start = @maze.m_start
+        @m_end = @maze.m_end
+
+        @visited_nodes = maze = Hash.new{|h, k| h[k] = []}
     end
+
+    def shortest_distance_node
+    end
+
     # 1. Encapsulate the in-memory maze data here.
     # 2. Provide methods giving read access to the maze data.
     # 3. Provide methods to initialize the maze data. A constructor could work.
 end
 
 class MazeFile
-    attr_accessor :maze
+    attr_accessor :maze, :m_start, :m_end
     def initialize(file)
+        
+        @m_start = ""
+        @m_end = ""
         @maze = input_file(file)
+
     end
 
     def input_file(file)
@@ -39,10 +51,10 @@ class MazeFile
                 # p "#{line_num} #{index}"
                 maze[index][line_num] = Node.new(x: index,y: line_num, height: height)
                 if height == 'S'
-                    m_start = Node.new(x: index,y: line_num,height: height)
+                    @m_start = Node.new(x: index,y: line_num,height: height)
                     p "start #{index} - #{line_num}"
                 elsif height == "E"
-                    m_end = Node.new(x: index,y: line_num,height: height)
+                    @m_end = Node.new(x: index,y: line_num,height: height)
                     p "end #{index} - #{line_num}"
                 end
             end
