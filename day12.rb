@@ -11,20 +11,23 @@ class Node
 end
 
 
+# class Maze
+#     attr_accessor :maze, :m_start, :m_end
+#     def initialize(input)
+#         @maze, @m_start, @m_end = MazeFile.new (input)
+#     end
+
+#     def get_nsew(coord)
+#     # 1. Encapsulate the in-memory maze data here.
+#     # 2. Provide methods giving read access to the maze data.
+#     # 3. Provide methods to initialize the maze data. A constructor could work.
+# end
+
+# class MazeFile
 class Maze
     attr_accessor :maze, :m_start, :m_end
-    def initialize(input)
-        @maze, @m_start, @m_end = MazeFile.new (input)
-    end
-    # 1. Encapsulate the in-memory maze data here.
-    # 2. Provide methods giving read access to the maze data.
-    # 3. Provide methods to initialize the maze data. A constructor could work.
-end
-
-class MazeFile
-    attr_accessor :maze
     def initialize(file)
-        @maze = input_file(file)
+        @maze, @m_start, m_end = input_file(file)
     end
 
     def input_file(file)
@@ -54,12 +57,48 @@ class MazeFile
 end
 
 class MazeSolution
+    def initialize
+        
+    end
     # 1. Encapsulate data that describes a solution to a maze.
     # 2. Provide methods to initialize and/or build a solution step by step.
     # 3. Provide a method that returns the solution as a formatted string
 end
 
 class MazeSolver
+    def initialize(maze)
+        @maze = maze
+        @completed_nodes = Array.new
+        @uncomplet_nodes = maze.clone
+        solution = MazeSolution.new
+    end
+
+    def solve(maze)
+        current = maze.m_start
+
+        while current.x != maze.m_end.x && current.y != maze.m_end.y do
+            process_node(current)
+        end
+        # current.height
+
+
+
+
+        #start at S
+        #check each coordinate
+            # if accessable then check distance update distance and parent if lower than established
+        #place current node in checked array
+    end
+
+    def process_node(current)
+        #pop off the current node
+    end
+
+    def sort_uncomplete_nodes(uncomplete_nodes)
+        return uncomplet_nodes.sort_by {|k, v| v.distance}.to_h
+    end
+
+
     # 1. Move the solve method here. 
     # The method should take a Maze as a parameter and return a MazeSolution.
     # It should not mutate the Maze given as a parameter.
