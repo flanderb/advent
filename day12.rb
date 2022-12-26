@@ -27,7 +27,7 @@ end
 class Maze
     attr_accessor :maze, :m_start, :m_end
     def initialize(file)
-        @maze, @m_start, m_end = input_file(file)
+        @maze = input_file(file)
     end
 
     def input_file(file)
@@ -42,10 +42,10 @@ class Maze
                 # p "#{line_num} #{index}"
                 maze[index][line_num] = Node.new(x: index,y: line_num, height: height)
                 if height == 'S'
-                    m_start = Node.new(x: index,y: line_num,height: height)
+                    @m_start = Node.new(x: index,y: line_num,height: height)
                     p "start #{index} - #{line_num}"
                 elsif height == "E"
-                    m_end = Node.new(x: index,y: line_num,height: height)
+                    @m_end = Node.new(x: index,y: line_num,height: height)
                     p "end #{index} - #{line_num}"
                 end
             end
